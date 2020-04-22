@@ -16,12 +16,15 @@ class Group extends Migration
         Schema::create('group', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('creatorId')->index();
-            $table->unsignedInteger('deletedId')->index();
+            $table->unsignedInteger('creator_id');
+            $table->unsignedInteger('deleted_by');
             $table->string('creatorName');
             $table->string('description');
-            $table->$table->date('createdDate');
+            $table->date('createdDate');
             $table->boolean('isActive');
+
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
