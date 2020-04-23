@@ -1,0 +1,53 @@
+<!--begin contact -->
+<section class="section-white no-padding-bottom" id="contact">
+        
+    <!--begin container-->
+    <div class="container">
+
+        <!--begin row-->
+        <div class="row">
+    
+            <!--begin col-md-6 -->
+            <div class="col-md-6">
+
+                <h4>Connexion</h4>
+
+                <!--begin contact form -->
+                <form  id="contact-form" class="contact" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+
+                    <div  *ngIf="hasError   " class="alert alert-danger" role="alert">
+                        <strong>Erreur</strong> {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span (click)="closeAlert()" aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div  *ngIf="isSuccess" class="alert alert-success" role="alert">
+                        <strong>Succes</strong> {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span  (click)="closeAlert()" aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                    <input class="contact-input white-input" required="" name="contact_names" id="email" formControlName="email" placeholder="Email" type="enail">
+
+                    <input class="contact-input white-input" required="" name="contact_email" id="password" formControlName="password" placeholder="Mot de passe" type="password">
+
+                    <button id="submit-button" [disabled]="isProcessing" class="contact-submit" type="submit">
+                        Me connecter &nbsp; &nbsp; &nbsp;
+                        <img *ngIf="isProcessing" src="assets/images/loader.gif" width="30" alt="pic">
+                    </button>
+                  
+                  </form>
+                
+            </div>
+            <!--end col-md-6 -->
+
+        </div>
+        <!--end row-->
+        
+  </div>
+  <!--end container-->
+        
+</section>
+<!--end contact-->
