@@ -1663,6 +1663,29 @@ input.contact-submit{
 	-webkit-transition: all .3s ease-in-out;
 }
 
+button.contact-submit{
+	color: #fff;
+	background: #008aff;
+    background: -webkit-linear-gradient(135deg, #6B02FF 0%, #985BEF 100%);
+    background: -o-linear-gradient(bottom right, #6B02FF, #985BEF);
+    background: -moz-linear-gradient(bottom right, #008aff, #1ad2fd);
+    background: linear-gradient(135deg, #6B02FF 0%, #985BEF 100%);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+	font-weight:600;
+    padding: 20px 34px;
+    position: relative;
+    text-transform: uppercase;
+	-webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+	transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-webkit-transition: all .3s ease-in-out;
+}
+
 input.contact-submit:hover{
 	color: #fff;
 	background: #985BEF;
