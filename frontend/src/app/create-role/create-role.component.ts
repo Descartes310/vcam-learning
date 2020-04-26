@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from '../_services/auth.service';
+import { RoleService } from '../_services/role.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-create-role',
+  templateUrl: './create-role.component.html',
+  styleUrls: ['./create-role.component.scss']
 })
-export class LoginComponent implements OnInit {
-
-  loginForm;
+export class CreateRoleComponent implements OnInit {
+  roleForm;
   isProcessing: boolean = false;
   hasError: boolean = false;
   isSuccess: boolean = false;
@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private roleService: RoleService,
     private authService: AuthService,
     private router: Router
   ) { 
-    this.loginForm = this.formBuilder.group({
-      email: '',
-      password: ''
+    this.roleForm = this.formBuilder.group({
+      name: '',
+      description: ''
     });
   }
 
@@ -37,12 +38,11 @@ export class LoginComponent implements OnInit {
     this.message = '';
   }
 
-  onSubmit(loginData) {
+  onSubmit(roleData) {
     // Process checkout data here
     this.isProcessing = true;
     if(
-        loginData.email.trim().length == 0 || 
-        loginData.password.trim().length == 0
+        roleData.name.trim().length == 0 
     ){
       this.hasError = true;
       this.isProcessing = false;
@@ -51,24 +51,19 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log('Your login data is: ', loginData);
-    this.authService.login(loginData.email, loginData.password)
+    this.roleService.add(roleData.name, this.authService.getUser().id)
     .then(response => {
       console.log(response);
       this.isSuccess = true;
-      this.message = "Connexion reussie";
-      this.authService.saveUser(response.user);
-      this.authService.saveToken({
-        'access_token': response.access_token,
-        'expires_at': response.expires_at,
-        'token_type': response.token_type
-      })
-      this.router.navigate(['home']);
+      this.hasError = false;
+      this.message = "Creation reussie";
+      this.roleForm.reset();
     })
     .catch(error => {
       console.log(error);
       this.hasError = true;
-      this.message = "Email ou mot de passe incorret";
+      this.isSuccess = false;
+      this.message = error.error.message;
     })
     .finally(() => {
       this.isProcessing = false;
