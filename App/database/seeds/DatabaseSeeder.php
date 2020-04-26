@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'job' => 'Administrateur système',
             'is_active' => true,
+            'avatar' => null,
+            'facebook' => null,
             'password' => bcrypt('admin'),
         ]);
     }

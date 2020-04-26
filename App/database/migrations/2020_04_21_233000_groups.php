@@ -16,7 +16,7 @@ class Groups extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description')->nullable;
+            $table->string('description')->nullable();
             $table->unsignedInteger('creator_id');
             $table->unsignedInteger('deleted_by');
             $table->boolean('is_active');

@@ -16,7 +16,7 @@ class Roles extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description')->nullable;
+            $table->string('description')->nullable();
             $table->unsignedInteger('creator_id');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
