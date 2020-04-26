@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as Routes from '../Routes'; 
-import { CreateRoleComponent } from '../create-role/create-role.component';
+import * as Routes from '../Routes';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RoleService {
+export class GroupService {
 
   constructor(private http: HttpClient) { }
 
@@ -17,10 +16,10 @@ export class RoleService {
             'is_active': true,
             'description': description
         }
-        return this.http.post<any>(Routes.ROLES, datas).toPromise();
+        return this.http.post<any>(Routes.GROUPS, datas).toPromise();
     }
 
-  findAll(): Promise<any> {
-    return this.http.get<any>(Routes.ROLES).toPromise();
-  }
+    findAll(): Promise<any> {
+        return this.http.get<any>(Routes.GROUPS).toPromise();
+    }
 }

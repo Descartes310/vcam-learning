@@ -14,7 +14,6 @@ class GroupController extends Controller
         $request->validate([
             'name' => 'required|unique:groups',
             'creator_id' => 'required|exists:App\User,id',
-            'deleted_by' => 'required|exists:App\User,id'
         ]);
         $data = $request->all();
         $group = Group::create($data);
@@ -25,7 +24,6 @@ class GroupController extends Controller
         $request->validate([
             'name' => 'required|unique:group',
             'creator_id' => 'required|exists:App\User,id',
-            'deleted_by' => 'required|exists:App\User,id'
         ]);
         $data = $request->all();
         $group = Group::find($id);

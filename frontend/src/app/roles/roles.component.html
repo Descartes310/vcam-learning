@@ -1,0 +1,44 @@
+    <!--begin section-grey -->
+    <section class="section-grey small-padding-top" id="about">
+
+		<!--begin container -->
+		<div class="container">
+
+	        <!--begin row -->
+	        <div class="row">
+
+				<!--begin col-md-12 -->
+				<div class="col-md-12 text-center">
+
+                    <h2 class="section-title">La liste des roles</h2>
+                    
+
+                    <a [routerLink]="['/create-role']" class="btn-green scrool">Ajouter un nouveau role</a>
+					
+				</div>
+				<!--end col-md-12 -->
+
+				<!--begin col-md-4 -->
+				<div *ngFor="let role of roles" class="col-md-4">
+
+					<div class="main-services">
+
+						<h3>{{ role.name }}</h3>
+
+						<p>{{ role.description }}</p>
+                        
+                        <a >Editer</a> &nbsp; &nbsp; &nbsp;
+                        <a style="color: red">Supprimer</a>
+					</div>
+
+				</div>
+				<!--end col-md-4 -->
+	       
+	        </div>
+	        <!--end row -->
+			
+		</div>
+		<!--end container -->
+
+    </section>
+    <!--end section-grey -->

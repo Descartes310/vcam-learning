@@ -18,8 +18,8 @@ class Groups extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->unsignedInteger('creator_id');
-            $table->unsignedInteger('deleted_by');
-            $table->boolean('is_active');
+            $table->unsignedInteger('deleted_by')->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
 

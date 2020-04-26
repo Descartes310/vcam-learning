@@ -58,6 +58,7 @@ export class CreateRoleComponent implements OnInit {
       this.hasError = false;
       this.message = "Creation reussie";
       this.roleForm.reset();
+      this.router.navigateByUrl('roles');
     })
     .catch(error => {
       console.log(error);

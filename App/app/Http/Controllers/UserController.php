@@ -35,7 +35,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required',
         ]);
         $data = $request->all();
         $user = User::find($id);

@@ -4,4 +4,8 @@ export const LOGIN = SERVER+'auth/login';
 
 export const LOGOUT = SERVER+'auth/logout';
 
-export const ROLE = SERVER+'role';
+export const USERS = SERVER+'users'
+
+export const ROLES = SERVER+'roles';
+
+export const GROUPS = SERVER+'groups';
