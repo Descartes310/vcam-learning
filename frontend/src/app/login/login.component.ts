@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../_models/user.models';
 
 @Component({
   selector: 'app-login',
@@ -46,18 +47,15 @@ export class LoginComponent implements OnInit {
     ){
       this.hasError = true;
       this.isProcessing = false;
-      this.message = "Veuillez bien remplir le formulaire"
-      console.error('Formulaire mal rempli')
+      this.message = "Veuillez bien remplir le formulaire";
       return;
     }
 
-    console.log('Your login data is: ', loginData);
     this.authService.login(loginData.email, loginData.password)
     .then(response => {
-      console.log(response);
       this.isSuccess = true;
       this.message = "Connexion reussie";
-      this.authService.saveUser(response.user);
+      this.authService.saveUser(new User(response.user));
       this.authService.saveToken({
         'access_token': response.access_token,
         'expires_at': response.expires_at,

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('avatar')->nullable();
             $table->string('job')->nullable();
+            $table->text('description')->nullable();
             $table->string('facebook')->nullable();
             $table->boolean('is_active')->default(true);
             $table->softDeletes();

@@ -38,4 +38,13 @@ class AuthController extends Controller
             'user' => $user
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        if (Auth::check()) {
+            $token = $request->user()->token();
+            $token->revoke();
+        }
+        return response(null, 200);
+    }
 }

@@ -18,7 +18,7 @@
                 </button>
                     
                 <!--logo -->
-                <a href="index.html" class="navbar-brand" id="logo">Nova</a>
+                <a href="index.html" class="navbar-brand" id="logo">VCAM</a>
 
             </div>
                     
@@ -26,11 +26,15 @@
 
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="#home_wrapper">Home</a></li>
+                    <li><a [routerLink]="['/home']">Accueil</a></li>
 
-                    <li><a [routerLink]="['/create-role']">Creer un role</a></li>
+                    <li><a [routerLink]="['/create-role']">Utilisateurs</a></li>
 
-                    <li><a href="#download-app" class="external discover-btn">Get Started</a></li>
+                    <li><a [routerLink]="['/create-role']">Groupes</a></li>
+
+                    <li><a [routerLink]="['/create-role']">Roles</a></li>
+
+                    <li><a (click)="logout()" style="cursor: pointer;" class="external discover-btn">Deconnexion</a></li>
                    
                 </ul>
             </div>
@@ -50,37 +54,6 @@
 
     <div class="home-section-overlay"></div>
 
-    <!--begin container -->
-    <div class="container">
-
-        <!--begin row -->
-        <div class="row">
-          
-            <!--begin col-md-7-->
-            <div class="col-md-7 padding-top-80">
-
-                  <h1>Welcome To Nova, The Wold's Most Powerful App Template</h1>
-
-                  <p>Curabitur quam etsum lacus etsumis nulatis etsumised vitae nislet varius loremis sedit  feugiat ligula aliquam etsimus dictimelis et netsum ipsum etim quias ligula.</p>
-
-                <a href="#about" class="btn-green scrool">Explore Benefits</a>
-
-            </div>
-            <!--end col-md-7-->
-       
-            <!--begin col-md-5-->
-            <div class="col-md-5 wow bounceIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;">
-
-                  <img src="assets/images/iphones-2-2.png" class="width-100" alt="pic">
-
-            </div>
-            <!--end col-md-5-->
-
-        </div>
-        <!--end row -->
-
-    </div>
-    <!--end container -->
 
 </section>
 <!--end home section -->
