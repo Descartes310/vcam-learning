@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['prefix' => 'auth'], function() {
     Route::post('login', 'AuthController@login');
     Route::delete('logout', 'AuthController@logout');
@@ -33,6 +29,8 @@ Route::group(['prefix' => 'users'], function() {
 
 Route::group(['prefix' => 'roles'], function() {
     Route::post('/', 'RoleController@add');
+    Route::post('/{id_role}/user/{id_user}', 'RoleController@addUserRole');
+    Route::delete('/{id_role}/user/{id_user}', 'RoleController@deleteUserRole');
     Route::get('/', 'RoleController@get');
     Route::get('/{id}', 'RoleController@find');
     Route::delete('/{id}', 'RoleController@delete');
@@ -41,6 +39,10 @@ Route::group(['prefix' => 'roles'], function() {
 
 Route::group(['prefix' => 'groups'], function() {
     Route::post('/', 'GroupController@add');
+    Route::post('/{id_group}/user/{id_user}', 'GroupController@addUserGroup');
+    Route::delete('/{id_group}/user/{id_user}', 'GroupController@deleteUserGroup');
+    Route::put('/{id_group}/user/{id_user}/admin', 'GroupController@setAsAdmin');
+    Route::delete('/{id_group}/user/{id_user}/admin', 'GroupController@removeAsAdmin');
     Route::get('/', 'GroupController@get');
     Route::get('/{id}', 'GroupController@find');
     Route::delete('/{id}', 'GroupController@delete');

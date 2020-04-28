@@ -10,14 +10,21 @@ class UserController extends Controller
 {
     //
     public function add(Request $request){
+
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'password' => 'required',
             'email' => 'required|unique:users',
         ]);
+
+        
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
+
+        //Encrypting user's password using bcrypt hash algorithm
+        $data['password'] = bcrypt($this->password());
+
+        //Storing user's avatar in filesystem
         if ($file = $request->file('avatar')) {
             $request->validate(['avatar' => 'image|mimes:jpeg,png,jpg,gif,svg']);
             $extension = $file->getClientOriginalExtension();
@@ -30,6 +37,11 @@ class UserController extends Controller
         $user = User::create($data);
         return response()->json($user);
     }
+
+
+
+
+
 
     public function update(Request $request, $id){
         $request->validate([
@@ -87,5 +99,23 @@ class UserController extends Controller
         }
         $user->delete($user);
         return response()->json($user);
+    }
+
+    public function password() {
+        do {
+            $pass = $this->ramdonString();
+            $user = User::wherePassword(bcrypt($pass))->first();
+        } while($user != null);
+        return $pass;
+    }
+
+    public function ramdonString() {
+        $area = 'abcdef01234567';
+        $pass = array();
+        for($i=0; $i < 5; $i++){
+            $n = rand(0, strlen($area));
+            $pass[] = $area[$n];
+        }
+        return implode($pass);
     }
 }

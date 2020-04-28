@@ -66,4 +66,29 @@ class RoleController extends Controller
         $role->delete($role);
         return response()->json($role);
     }
+
+    public function addUserRole($id_role, $id_user){
+        $user = User::find($id_user);
+        $role = Role::find($id_role);
+        if(!($user && $role)) {
+            abort(404, "L'utilisateur ou le rolee son inexistant");
+        }
+        $user_role = UserRole::create([
+            'user_id' => $id_user,
+            'role_id' => $id_role,
+            'is_active' => true,
+        ]);
+        return response()->json($user_role);
+    }
+
+    public function deleteUserrole($id_role, $id_user){
+        $user = User::find($id_user);
+        $role = Role::find($id_role);
+        if(!($user && $role)) {
+            abort(404, "L'utilisateur ou le rolee son inexistant");
+        }
+        $user_role = UserRole::whereUserIdAndRoleId($id_user, $id_role)->first();
+        $user_role->delete();
+        return response()->json($user_role);
+    }
 }
