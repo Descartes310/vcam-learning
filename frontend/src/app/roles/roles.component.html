@@ -13,7 +13,7 @@
                     <h2 class="section-title">La liste des roles</h2>
                     
 
-                    <a [routerLink]="['/create-role']" class="btn-green scrool">Ajouter un nouveau role</a>
+                    <a *ngIf="hasPermission(['create-role'])" [routerLink]="['/create-role']" class="btn-green scrool">Ajouter un nouveau role</a>
 					
 				</div>
 				<!--end col-md-12 -->

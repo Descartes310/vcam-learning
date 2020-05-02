@@ -23,16 +23,20 @@ export class AuthService {
     }
 
     isAuthenticated(){
-        let token = this.getToken();
         let user = this.getUser();
-        let now = new Date();
-        let expires_at = new Date(token.expires_at);
-        return token && user && (now.getTime() < expires_at.getTime());
+        let token = this.getToken();
+        let now = (new Date()).getTime();
+        if(user && token) {
+            let expires_at = (new Date(token.expires_at)).getTime();
+            return now < expires_at;
+        } else {
+            return false;
+        }
     }
 
     logout() {
         if (this.isAuthenticated()) {
-            this.http.delete(Routes.LOGOUT, { params: { id: '' + this.getUser().id } }).subscribe(() => { });
+            this.http.delete(Routes.LOGOUT).subscribe(() => { });
           }
           
           localStorage.clear();
@@ -58,6 +62,40 @@ export class AuthService {
 
     getUser(): User{
        return  new User(JSON.parse(localStorage.getItem('user')));
+    }
+
+    hasPermission(roles: string[]): boolean {
+        let authorized = false;
+        if(roles.length > 0) {
+            this.getRoles().filter(role => {
+              if(roles.includes(role.name))
+                authorized = true;
+            })
+            if(authorized) {
+              return true;
+            } else {
+              return false;
+            }
+        } else{
+            return false;
+        }
+    }
+
+    getRoles(): any {
+        let user = this.getUser();
+        return user ? user.roles : null
+    }
+
+    isLogged(): boolean{
+        let user = this.getUser();
+        let token = this.getToken();
+        let now = (new Date()).getTime();
+        if(user && token) {
+            let expires_at = (new Date(token.expires_at)).getTime();
+            return now < expires_at;
+        } else {
+            return false;
+        }
     }
 
 }

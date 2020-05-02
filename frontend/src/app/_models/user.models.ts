@@ -5,6 +5,7 @@ export class User {
     email: string;
     avatar: string;
     job: string;
+    roles: any;
     description: string;
     facebook: string;
     isActive: boolean;

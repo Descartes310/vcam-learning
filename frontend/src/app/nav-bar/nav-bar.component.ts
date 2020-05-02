@@ -15,6 +15,10 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  hasPermission(roles: string[]): boolean {
+    return this.authService.hasPermission(roles);
+  }
+
   logout() {
     this.authService.logout();
   }

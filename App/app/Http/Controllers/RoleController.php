@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Role;
 use App\User;
+use App\UserRole;
 
 class RoleController extends Controller
 {
@@ -70,7 +71,7 @@ class RoleController extends Controller
     public function addUserRole($id_role, $id_user){
         $user = User::find($id_user);
         $role = Role::find($id_role);
-        if(!($user && $role)) {
+        if($user==null || $role==null) {
             abort(404, "L'utilisateur ou le rolee son inexistant");
         }
         $user_role = UserRole::create([
@@ -84,7 +85,7 @@ class RoleController extends Controller
     public function deleteUserrole($id_role, $id_user){
         $user = User::find($id_user);
         $role = Role::find($id_role);
-        if(!($user && $role)) {
+        if($user==null || $role==null) {
             abort(404, "L'utilisateur ou le rolee son inexistant");
         }
         $user_role = UserRole::whereUserIdAndRoleId($id_user, $id_role)->first();

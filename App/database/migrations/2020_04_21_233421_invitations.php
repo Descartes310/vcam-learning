@@ -17,6 +17,7 @@ class Invitations extends Migration
             $table->increments('id');
             $table->unsignedInteger('sender_id');
             $table->unsignedInteger('receiver_id');
+            $table->unsignedInteger('group_id');
             $table->boolean('is_active');
             $table->string('hash');
             $table->enum('status',['WAITING', 'ACCEPTED', 'REFUSED']);
@@ -25,6 +26,7 @@ class Invitations extends Migration
 
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
         });
     }
 

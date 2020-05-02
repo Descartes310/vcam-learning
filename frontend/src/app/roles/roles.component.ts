@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from '../_services/role.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-roles',
@@ -11,8 +12,13 @@ export class RolesComponent implements OnInit {
   roles: any;
 
   constructor(
-    private roleService: RoleService
+    private roleService: RoleService,
+    private authService: AuthService
   ) { }
+
+  hasPermission(roles: string[]): boolean {
+    return this.authService.hasPermission(roles);
+  }
 
   ngOnInit() {
     this.roleService.findAll().then(

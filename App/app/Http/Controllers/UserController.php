@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Mail\Contact;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -22,7 +24,8 @@ class UserController extends Controller
         $data = $request->all();
 
         //Encrypting user's password using bcrypt hash algorithm
-        $data['password'] = bcrypt($this->password());
+        $pass = $this->password();
+        $data['password'] = bcrypt($pass);
 
         //Storing user's avatar in filesystem
         if ($file = $request->file('avatar')) {
@@ -35,13 +38,27 @@ class UserController extends Controller
             $data['avatar'] = url("$relativeDestination/$safeName");
         }
         $user = User::create($data);
-        return response()->json($user);
+
+        $objDemo = new \stdClass();
+        $objDemo->name = $request->first_name.' '.$request->last_name;
+        $objDemo->email = $request->email;
+        $objDemo->subject = "Creation du compte UserManager";
+        $objDemo->message = "Les paramètres de votre compte sont $request->email et $pass";
+        try {
+            Mail::to($request->email)->send(new Contact($objDemo));
+        } 
+        catch (Exception $e) {
+            return response()->json([
+                'user' => $user,
+                'message' => "Le mail n'a pas été envoyé"
+            ]);
+        }
+
+        return response()->json([
+            'user' => $user,
+            'message' => "Le mail a été envoyé"
+        ]);
     }
-
-
-
-
-
 
     public function update(Request $request, $id){
         $request->validate([
@@ -113,7 +130,7 @@ class UserController extends Controller
         $area = 'abcdef01234567';
         $pass = array();
         for($i=0; $i < 5; $i++){
-            $n = rand(0, strlen($area));
+            $n = rand(0, strlen($area)-1);
             $pass[] = $area[$n];
         }
         return implode($pass);

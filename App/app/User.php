@@ -14,15 +14,9 @@ class User extends Authenticatable
 
     
     protected $guarded = [];
-    //protected $fillable = ['first_name', 'last_name', '...etc']
 
-    
-    // protected $hidden = [
-    //     'password', 'remember_token',
-    // ];
-
-    
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'user_roles', 'user_id', 'role_id');
+    }
 }

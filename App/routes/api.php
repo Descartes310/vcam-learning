@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function() {
     Route::post('login', 'AuthController@login');
-    Route::delete('logout', 'AuthController@logout');
+    Route::delete('logout', 'AuthController@logout')->middleware('auth:api');
 });
 
-Route::group(['prefix' => 'users'], function() {
+Route::group(['prefix' => 'users', 'middleware' => ['auth:api']], function() {
     Route::post('/', 'UserController@add');
     Route::get('/', 'UserController@get');
     Route::get('/{id}', 'UserController@find');
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'users'], function() {
     Route::match(['put', 'post'],'/{id}', 'UserController@update');
 });
 
-Route::group(['prefix' => 'roles'], function() {
+Route::group(['prefix' => 'roles', 'middleware' => ['auth:api']], function() {
     Route::post('/', 'RoleController@add');
     Route::post('/{id_role}/user/{id_user}', 'RoleController@addUserRole');
     Route::delete('/{id_role}/user/{id_user}', 'RoleController@deleteUserRole');
@@ -37,13 +37,14 @@ Route::group(['prefix' => 'roles'], function() {
     Route::match(['put', 'post'],'/{id}', 'RoleController@update');
 });
 
-Route::group(['prefix' => 'groups'], function() {
+Route::group(['prefix' => 'groups', 'middleware' => ['auth:api']], function() {
     Route::post('/', 'GroupController@add');
-    Route::post('/{id_group}/user/{id_user}', 'GroupController@addUserGroup');
+    Route::post('/{id_group}/user/{id_user}/admin/{id_admin}', 'GroupController@inviteUser');
     Route::delete('/{id_group}/user/{id_user}', 'GroupController@deleteUserGroup');
     Route::put('/{id_group}/user/{id_user}/admin', 'GroupController@setAsAdmin');
     Route::delete('/{id_group}/user/{id_user}/admin', 'GroupController@removeAsAdmin');
     Route::get('/', 'GroupController@get');
+    Route::get('/invitation/{hash}', 'GroupController@addUserGroup');
     Route::get('/{id}', 'GroupController@find');
     Route::delete('/{id}', 'GroupController@delete');
     Route::match(['put', 'post'],'/{id}', 'GroupController@update');

@@ -38,6 +38,10 @@ export class CreateRoleComponent implements OnInit {
     this.message = '';
   }
 
+  hasPermission(roles: string[]): boolean {
+    return this.authService.hasPermission(roles);
+  }
+
   onSubmit(roleData) {
     // Process checkout data here
     this.isProcessing = true;

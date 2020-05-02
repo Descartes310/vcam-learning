@@ -24,6 +24,7 @@ class AuthController extends Controller
             ], 401);
 
         $user = Auth::user();
+        $user->roles;
 
         $tokenResult = $user->createToken('User Manager');
         $token = $tokenResult->token;
